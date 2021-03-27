@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Assets/Ship/ShipBody3.png" type="Texture" id=1]
 [ext_resource path="res://Characters/CaptainNugget.tscn" type="PackedScene" id=2]
@@ -8,6 +8,8 @@
 [ext_resource path="res://Assets/Ship/Buttons_arrows.png" type="Texture" id=6]
 [ext_resource path="res://Assets/Ship/Particle_Yellow.png" type="Texture" id=7]
 [ext_resource path="res://PlayerShip/Cannon.tscn" type="PackedScene" id=8]
+[ext_resource path="res://PlayerShip/Cannonballs_redt.png" type="Texture" id=9]
+[ext_resource path="res://PlayerShip/Cannonballs_Highlight.png" type="Texture" id=10]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
@@ -24,6 +26,19 @@ animations = [ {
 
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 26.9738, 13.2292 )
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 10 ) ],
+"loop": true,
+"name": "highlight",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 285.495
@@ -80,26 +95,40 @@ cast_to = Vector2( 0, 70 )
 [node name="Cannon" parent="Cannons" instance=ExtResource( 8 )]
 position = Vector2( -180.257, -561.349 )
 scale = Vector2( 2, 2 )
+facing = "left"
 
 [node name="Cannon2" parent="Cannons" instance=ExtResource( 8 )]
 position = Vector2( -184.401, -10.5283 )
 scale = Vector2( 2, 2 )
+facing = "left"
 
 [node name="Cannon3" parent="Cannons" instance=ExtResource( 8 )]
 position = Vector2( -193.401, 617.182 )
 scale = Vector2( 2, 2 )
+facing = "left"
 
 [node name="Cannon4" parent="Cannons" instance=ExtResource( 8 )]
 position = Vector2( 216.074, 617.183 )
 scale = Vector2( -2, 2 )
+facing = "right"
 
 [node name="Cannon5" parent="Cannons" instance=ExtResource( 8 )]
 position = Vector2( 220.573, -8.27832 )
 scale = Vector2( -2, 2 )
+facing = "right"
 
 [node name="Cannon6" parent="Cannons" instance=ExtResource( 8 )]
 position = Vector2( 220.573, -557.244 )
 scale = Vector2( -2, 2 )
+facing = "right"
+
+[node name="Cannonballs" type="AnimatedSprite" parent="."]
+position = Vector2( 21.9758, -739.405 )
+frames = SubResource( 6 )
+
+[node name="RayCast2D" type="RayCast2D" parent="Cannonballs"]
+enabled = true
+cast_to = Vector2( 0, 100 )
 
 [node name="CaptainNugget" parent="." instance=ExtResource( 2 )]
 position = Vector2( 157.857, -28.0931 )
@@ -136,6 +165,9 @@ position = Vector2( 26.7556, 214.044 )
 texture = ExtResource( 6 )
 
 [node name="BackParticles" type="Node2D" parent="."]
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="LeftButtom" type="Particles2D" parent="BackParticles"]
 position = Vector2( -411.968, 874.902 )
@@ -154,3 +186,9 @@ lifetime = 3.0
 speed_scale = 3.0
 process_material = SubResource( 5 )
 texture = ExtResource( 7 )
+[connection signal="captain_used_cannonball" from="Cannons/Cannon" to="." method="_on_Cannon_captain_used_cannonball"]
+[connection signal="captain_used_cannonball" from="Cannons/Cannon2" to="." method="_on_Cannon2_captain_used_cannonball"]
+[connection signal="captain_used_cannonball" from="Cannons/Cannon3" to="." method="_on_Cannon3_captain_used_cannonball"]
+[connection signal="captain_used_cannonball" from="Cannons/Cannon4" to="." method="_on_Cannon4_captain_used_cannonball"]
+[connection signal="captain_used_cannonball" from="Cannons/Cannon5" to="." method="_on_Cannon5_captain_used_cannonball"]
+[connection signal="captain_used_cannonball" from="Cannons/Cannon6" to="." method="_on_Cannon6_captain_used_cannonball"]
