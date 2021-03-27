@@ -4,17 +4,25 @@
 [ext_resource path="res://Characters/CaptainNugget.gd" type="Script" id=2]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 2.25
-height = 12.25
+radius = 11.5998
+height = 5.71921
 
 [node name="CaptainNugget" type="KinematicBody2D"]
 collision_mask = 2
 script = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.375, 9.6875 )
-rotation = 1.5708
+position = Vector2( -0.526602, 0.930519 )
 shape = SubResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}

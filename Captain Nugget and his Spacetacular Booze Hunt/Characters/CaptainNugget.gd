@@ -1,7 +1,7 @@
 extends KinematicBody2D
 
 var velocity = Vector2()
-var speed = 100;
+var speed = 70;
 
 func _physics_process(delta):
 	get_input(delta)

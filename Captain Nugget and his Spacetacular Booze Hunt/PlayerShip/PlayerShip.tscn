@@ -1,17 +1,29 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Assets/Ship/ShipBody3.png" type="Texture" id=1]
 [ext_resource path="res://Characters/CaptainNugget.tscn" type="PackedScene" id=2]
 [ext_resource path="res://PlayerShip/PlayerShip.gd" type="Script" id=3]
-[ext_resource path="res://Assets/Ship/Ship_helm.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Ship/Helmt_final.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Ship/Helm_HighLight_final.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Ship/Buttons_arrows.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Ship/Particle_Yellow.png" type="Texture" id=7]
+[ext_resource path="res://PlayerShip/Cannon.tscn" type="PackedScene" id=8]
 
 [sub_resource type="SpriteFrames" id=3]
 animations = [ {
+"frames": [ ExtResource( 5 ) ],
+"loop": true,
+"name": "highlight",
+"speed": 5.0
+}, {
 "frames": [ ExtResource( 4 ) ],
 "loop": true,
 "name": "default",
 "speed": 5.0
 } ]
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 26.9738, 13.2292 )
 
 [sub_resource type="CapsuleShape2D" id=1]
 radius = 285.495
@@ -20,18 +32,74 @@ height = 1377.96
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 121.887, 34.3735 )
 
+[sub_resource type="ParticlesMaterial" id=5]
+emission_shape = 1
+emission_sphere_radius = 56.9
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+scale_random = 1.0
+
 [node name="PlayerShip" type="Area2D"]
 position = Vector2( 184.201, 113.844 )
 scale = Vector2( 0.07, 0.07 )
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ShipSprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ShipHelm" type="AnimatedSprite" parent="."]
-position = Vector2( 14.5103, 385.749 )
-scale = Vector2( 5, 5 )
+position = Vector2( 21.6531, 370.571 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 3 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="ShipHelm"]
+collision_layer = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ShipHelm/StaticBody2D"]
+position = Vector2( -1.19312, 19.4885 )
+shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="HelmCast" type="RayCast2D" parent="ShipHelm"]
+position = Vector2( -1.23792, -2.37921 )
+enabled = true
+cast_to = Vector2( 0, 70 )
+
+[node name="Cannons" type="Node2D" parent="."]
+
+[node name="Cannon" parent="Cannons" instance=ExtResource( 8 )]
+position = Vector2( -180.257, -561.349 )
+scale = Vector2( 2, 2 )
+
+[node name="Cannon2" parent="Cannons" instance=ExtResource( 8 )]
+position = Vector2( -184.401, -10.5283 )
+scale = Vector2( 2, 2 )
+
+[node name="Cannon3" parent="Cannons" instance=ExtResource( 8 )]
+position = Vector2( -193.401, 617.182 )
+scale = Vector2( 2, 2 )
+
+[node name="Cannon4" parent="Cannons" instance=ExtResource( 8 )]
+position = Vector2( 216.074, 617.183 )
+scale = Vector2( -2, 2 )
+
+[node name="Cannon5" parent="Cannons" instance=ExtResource( 8 )]
+position = Vector2( 220.573, -8.27832 )
+scale = Vector2( -2, 2 )
+
+[node name="Cannon6" parent="Cannons" instance=ExtResource( 8 )]
+position = Vector2( 220.573, -557.244 )
+scale = Vector2( -2, 2 )
 
 [node name="CaptainNugget" parent="." instance=ExtResource( 2 )]
 position = Vector2( 157.857, -28.0931 )
@@ -49,12 +117,40 @@ collision_layer = 2
 polygon = PoolVector2Array( 16.0745, -946.844, -287.786, -638.211, -286.194, 822.225, -249.603, 861.998, 278.573, 860.407, 329.481, 817.453, 261.072, 790.407, -224.149, 791.999, -220.969, -607.984, 17.6641, -849.8, 257.888, -611.166, 262.66, 791.999, 329.478, 815.862, 331.066, -635.03 )
 
 [node name="DoorCollision" type="StaticBody2D" parent="."]
-position = Vector2( 18.4121, 350.389 )
+position = Vector2( 23.1797, 349.793 )
 collision_layer = 2
 __meta__ = {
-"_edit_group_": true
+"_edit_group_": true,
+"_edit_lock_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DoorCollision"]
 position = Vector2( -2.0498, 0.0546875 )
 shape = SubResource( 2 )
+
+[node name="UI" type="Node2D" parent="."]
+
+[node name="HelmetControl" type="Sprite" parent="UI"]
+visible = false
+position = Vector2( 26.7556, 214.044 )
+texture = ExtResource( 6 )
+
+[node name="BackParticles" type="Node2D" parent="."]
+
+[node name="LeftButtom" type="Particles2D" parent="BackParticles"]
+position = Vector2( -411.968, 874.902 )
+emitting = false
+amount = 20
+lifetime = 3.0
+speed_scale = 3.0
+process_material = SubResource( 5 )
+texture = ExtResource( 7 )
+
+[node name="RightButtom" type="Particles2D" parent="BackParticles"]
+position = Vector2( 453.428, 876.038 )
+emitting = false
+amount = 20
+lifetime = 3.0
+speed_scale = 3.0
+process_material = SubResource( 5 )
+texture = ExtResource( 7 )
