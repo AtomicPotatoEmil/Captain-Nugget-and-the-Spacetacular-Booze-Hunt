@@ -1,0 +1,60 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Assets/Ship/ShipBody3.png" type="Texture" id=1]
+[ext_resource path="res://Characters/CaptainNugget.tscn" type="PackedScene" id=2]
+[ext_resource path="res://PlayerShip/PlayerShip.gd" type="Script" id=3]
+[ext_resource path="res://Assets/Ship/Ship_helm.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=3]
+animations = [ {
+"frames": [ ExtResource( 4 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 285.495
+height = 1377.96
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 121.887, 34.3735 )
+
+[node name="PlayerShip" type="Area2D"]
+position = Vector2( 184.201, 113.844 )
+scale = Vector2( 0.07, 0.07 )
+script = ExtResource( 3 )
+
+[node name="ShipSprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+
+[node name="ShipHelm" type="AnimatedSprite" parent="."]
+position = Vector2( 14.5103, 385.749 )
+scale = Vector2( 5, 5 )
+frames = SubResource( 3 )
+
+[node name="CaptainNugget" parent="." instance=ExtResource( 2 )]
+position = Vector2( 157.857, -28.0931 )
+scale = Vector2( 5, 5 )
+
+[node name="HurtBox" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 17.9991, 125.992 )
+shape = SubResource( 1 )
+
+[node name="BoundingBox" type="StaticBody2D" parent="."]
+collision_layer = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="BoundingBox"]
+polygon = PoolVector2Array( 16.0745, -946.844, -287.786, -638.211, -286.194, 822.225, -249.603, 861.998, 278.573, 860.407, 329.481, 817.453, 261.072, 790.407, -224.149, 791.999, -220.969, -607.984, 17.6641, -849.8, 257.888, -611.166, 262.66, 791.999, 329.478, 815.862, 331.066, -635.03 )
+
+[node name="DoorCollision" type="StaticBody2D" parent="."]
+position = Vector2( 18.4121, 350.389 )
+collision_layer = 2
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DoorCollision"]
+position = Vector2( -2.0498, 0.0546875 )
+shape = SubResource( 2 )
