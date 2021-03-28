@@ -32,8 +32,8 @@ animations = [ {
 } ]
 
 [sub_resource type="CapsuleShape2D" id=1]
-radius = 11.5998
-height = 5.71921
+radius = 5.89809
+height = 6.54478
 
 [node name="CaptainNugget" type="KinematicBody2D"]
 collision_mask = 2
@@ -46,15 +46,12 @@ __meta__ = {
 scale = Vector2( 0.2, 0.2 )
 frames = SubResource( 2 )
 animation = "idle"
-frame = 3
 playing = true
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.526602, 0.930519 )
+position = Vector2( 0.21665, 5.61302 )
+rotation = 1.5708
 shape = SubResource( 1 )
-__meta__ = {
-"_edit_lock_": true
-}

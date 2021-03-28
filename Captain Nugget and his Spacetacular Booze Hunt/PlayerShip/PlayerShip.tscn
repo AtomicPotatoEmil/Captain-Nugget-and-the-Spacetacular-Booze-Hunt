@@ -59,6 +59,8 @@ scale_random = 1.0
 [node name="PlayerShip" type="Area2D"]
 position = Vector2( 184.201, 113.844 )
 scale = Vector2( 0.07, 0.07 )
+collision_layer = 16
+collision_mask = 33
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
@@ -123,7 +125,8 @@ scale = Vector2( -2, 2 )
 facing = "right"
 
 [node name="Cannonballs" type="AnimatedSprite" parent="."]
-position = Vector2( 21.9758, -739.405 )
+position = Vector2( 19.5928, -722.72 )
+scale = Vector2( 2, 2 )
 frames = SubResource( 6 )
 
 [node name="RayCast2D" type="RayCast2D" parent="Cannonballs"]
@@ -186,6 +189,7 @@ lifetime = 3.0
 speed_scale = 3.0
 process_material = SubResource( 5 )
 texture = ExtResource( 7 )
+[connection signal="area_entered" from="." to="." method="_on_PlayerShip_area_entered"]
 [connection signal="captain_used_cannonball" from="Cannons/Cannon" to="." method="_on_Cannon_captain_used_cannonball"]
 [connection signal="captain_used_cannonball" from="Cannons/Cannon2" to="." method="_on_Cannon2_captain_used_cannonball"]
 [connection signal="captain_used_cannonball" from="Cannons/Cannon3" to="." method="_on_Cannon3_captain_used_cannonball"]

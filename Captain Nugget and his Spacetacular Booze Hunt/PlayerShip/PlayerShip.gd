@@ -10,6 +10,8 @@ signal captain_took_cannonball
 onready var left_buttom_particles = get_node("BackParticles/LeftButtom")
 onready var right_buttom_particles = get_node("BackParticles/RightButtom")
 
+signal hit
+
 func _physics_process(delta):
 	ship_helmet(delta)
 	position.y = clamp(position.y, 60, get_viewport_rect().size.y - 60)
@@ -89,4 +91,10 @@ func _on_Cannon6_captain_used_cannonball():
 	for node in $Cannons.get_children():
 		node.captain_has_cannonball = false
 		captain_has_cannonball = false
+	pass # Replace with function body.
+
+
+func _on_PlayerShip_area_entered(area):
+	if area.is_in_group("EnemyBullet"):
+		emit_signal("hit")
 	pass # Replace with function body.
